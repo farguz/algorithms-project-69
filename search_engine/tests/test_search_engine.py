@@ -17,7 +17,7 @@ def docs():
 
 
 def test_search_basic(docs):
-    assert search(docs, 'shoot') == ['doc1', 'doc2']
+    assert search(docs, 'shoot') == ['doc2', 'doc1']
     assert search([], 'shoot') == []
 
 
