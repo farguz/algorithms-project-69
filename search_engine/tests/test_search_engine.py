@@ -24,3 +24,8 @@ def test_search_basic(docs):
 def test_search_with_punctuation(docs):
     assert search(docs, 'pint') == ['doc1']
     assert search(docs, 'pint!') == ['doc1']
+
+
+def test_search_with_few_words(docs):
+    assert search(docs, "don't that your") == ['doc2', 'doc3']
+    assert search(docs, 'shoot straight unless had') == ['doc1', 'doc2']
