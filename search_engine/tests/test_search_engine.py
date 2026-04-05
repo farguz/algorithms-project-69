@@ -1,6 +1,6 @@
 import pytest
 
-from search_engine.search_engine import search
+from search_engine.search_engine import inverted_index, search
 
 
 @pytest.fixture
@@ -29,3 +29,23 @@ def test_search_with_punctuation(docs):
 def test_search_with_few_words(docs):
     assert search(docs, "don't that your") == ['doc2', 'doc3']
     assert search(docs, 'shoot straight unless had') == ['doc1', 'doc2']
+
+
+def test_inverted_index_empty(docs):
+    assert inverted_index(docs, '') == {}
+    assert inverted_index([], 'shoot') == {}
+
+
+def test_inverted_index_single_word(docs):
+    assert inverted_index(docs, 'shoot') == {
+        'shoot': ['doc1', 'doc2']
+    }
+    assert inverted_index(docs, 'capybara') == {}
+
+
+def test_inverted_index_few_words(docs):
+    assert inverted_index(docs, 'shoot that pint') == {
+        'shoot': ['doc1', 'doc2'],
+        'that': ['doc2'],
+        'pint': ['doc1'],
+    }
